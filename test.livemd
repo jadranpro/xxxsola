@@ -556,5 +556,16 @@ Pravilo:
 
 
 ```elixir
-a = [42, 33, 17]
+l = [42, 33, 17, 88]
+```
+
+```elixir
+[a, b, c, d] = [42, 33, 17, 88]
+```
+
+
+`{:ok, led_output0} = Circuits.GPIO.open(led_pin0, :output)`
+
+```elixir
+{:ok, led_output0} = Circuits.GPIO.open(9, :output)
 ```
