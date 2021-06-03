@@ -1,571 +1,96 @@
-# xxxSola - Elixir
+# Ponavljanje
 
-## Elixir - podatki in podatkovne strukture
+## Zaporedno sekvencijalno
 
-* podatki - informacije
-* vrednosti 
-* spremenljivke
+Zaporedno sekvencijalno izvajanje ukazov
 
-V Elixirju poznamo sledeče osnovne podatkovne tipe:
+...
 
-* števila
-  * cela števila (integers)
-  * decimalna števila (floats)
-* nizi znakov (strings)
-* logične vrednosti (booleans)
-* atomi (atoms)
+ponavljanje
 
-V Elixirju poznamo še sledeče podatkovne strukture:
+V Elixsirju imamo več naničinov za večkrano izvajanje ukazov (zanke?).
 
-* seznami (lists)
-* terke (tuples)
-* slovarji (maps)
+....
 
-## Osnovni podatkovni tipi
+`for` zanka
 
-V Elixirju poznamo sledeče osnovne podatkovne tipe:
+...
 
-* števila
-  * cela števila (integers)
-  * decimalna števila (floats)
-* nizi znakov (strings)
-* logične vrednosti (booleans)
-* atomi (atoms)
+Za večkratno izvajanje niza ukazov lahko uporabnimo `for` zanko
 
-Osnovni podatkovni tipi oziroma osnovne vrste podatkovnih vrednosti
-
-### Cela števila (integers)
-
-Zapis v desetiški obliki:
-
-```elixir
-255
-```
-
-```elixir
--255
-```
-
-Cela števila so lahko zapisana tudi v binarni, oktalni in heksadecimalni obliki:
-
-```elixir
-0b0110
-```
-
-```elixir
-0o644
-```
-
-```elixir
-0x1F
-```
-
-### Decimalna števila
-
-Pri decimalnih številih mara bit pred decimalno vejico zapisana vsaj ena števka:
-
-```elixir
-3.14
-```
-
-```elixir
-# Sicer piride do napaker:
-.14
-```
-
-### Nizi znakov (strings)
-
-Niz znakov (string) v Elixirju je niz UTF-8 kodiranih znakov zapisanih med dvema dvojnima navednicama:
-
-```elixir
-"Hej"
-```
-
-```elixir
-"ßjziękuję ali čšžČĆ"
-```
-
-Nizi znako lahko vsebujejo prelom vrstic ali posebne znake, npr. za prehod v novo vrsto:
-
-```elixir
-"foo
-bar"
-```
-
-```elixir
-"foo\nbar"
-```
-
-### Logične vrednosti (Booleans)
-
-V Elixir poznamo dve logični vrednosti `resnica` (true) in `neresnica` (false); vse vrednosti so "resnične" (truthy) razen `false` in `nil`:
-
-```elixir
-true
-```
-
-```elixir
-false
-```
-
-### Simboli (Atoms)
-
-Simbol (atom) v Elixrju je konstanta čigar ime je hkrati njegova vrednost.
-
-```elixir
-:foo == :bar
-```
-
-Imena modulov v Elixirju so simboli / atomi. `MyApp.MyModule` is veljaven simbol / atom.
-
-```elixir
-is_atom(MyApp.MyModule)
-```
-
-### Osnovne opracije nad osnovnimi tipi podatkov
-
-#### Aritmetika
-
-Elixir podpira osnvne operacije `+`, `-`, `*` (množenje), and `/` (deljenje).
-Deljenje zmiraj vrne decimalno število.
-
-```elixir
-2 + 2
-```
-
-```elixir
-2 - 1
-```
-
-```elixir
-2 * 5
-```
-
-```elixir
-10 / 5
-```
-
-Za celoštevilno deljenje ali ostanek deljenja (modulo) uporabimo funkciji 'div' in 'rem':
-
-```elixir
-div(10, 5)
-```
-
-```elixir
-rem(10, 3)
-```
-
-#### Logične operacije
-
-
-Tri osnovne logične operacije so 'in' (and), 'ali' (or) ter 'ne' (not).
- (`true` or `false`):
-
-```elixir
-true and 42
-```
-
-```elixir
-false or true
-```
-
-```elixir
-not false
-```
-
-```elixir
-42 and true
-```
-
-```elixir
-not 42
-```
-
-
-Elixir omogoča logične operacije `||` (ali), `&&` (in) ter `!` (negacija).
-These support any types:
-
-```elixir
-20 || true
-```
-
-```elixir
-false || 42
-```
-
-```elixir
-42 && true
-```
-
-```elixir
-42 && nil
-```
-
-```elixir
-!42
-```
-
-```elixir
-!false
-```
-
-
-#### Primerjalni
-
-V Elixirju imamo vse običanje primerjalne operatorje: `= =`, `!=`, `= = =`, `!= =`, `<=`, `>=`, `<` in `>`.
-
-
-`= = (enako)`
-
-```elixir
-2 == 2
-```
-
-`!= (Ni enako)`
-
-```elixir
-1 != 2
-```
-
-`> (večje od)`
-
-```elixir
-1 > 2
-```
-
-`<(manj kot)`
-
-```elixir
-1 < 2
-```
-
-`>= (večji ali enak)`
-
-```elixir
-2 >= 3
-```
-
-```elixir
-3 >= 3
-```
-
-`<= (manj ali enako)`
-
-```elixir
-2 <= 3
-```
-
-```elixir
-3 >= 3
-```
-
-Za strogo primirjanje celih in decimalnih števil se uporabi `= = =` in `!= =`:
-
-```elixir
-2 === 2.0
-```
-
-
-#### Interpolacija nizov znakov
-
-Za tvorjenje nizov znakov lahko uporabimo interpolacijo `"Hello #{name}"`:
-
-```elixir
-name = "Pinko"
-"Hello #{name}"
 ```
-
-#### Združevanje nizov znakov
-
-Za združevanje nizov znakov se uporablja `<>` operator:
-
-```elixir
-name = "Pinko"
-"Hello " <> name
-```
-
-## Podatkovne strukture
-
-
-V Elixirju poznamo še sledeče podatkovne strukture:
-
-* seznami (lists)
-* terke (tuples)
-* slovarji (maps)
-
-## Seznami (Lists)
-
-Lists are simple collections of values which may include multiple types; lists may also include non-unique values:
-
-```elixir
-list = [3.14, :pie, "Apple"]
-```
-
-Elixir implements list collections as linked lists.
-This means that accessing the list length is an operation that will run in linear time (`O(n)`).
-For this reason, it is typically faster to prepend than to append:
-
-```elixir
-# Prepending (fast)
-["π" | list]
-```
-
-```elixir
-# Appending (slow)
-list ++ ["Cherry"]
-```
-
-### List Concatenation
-
-List concatenation uses the `++/2` operator:
-
-```elixir
-[1, 2] ++ [3, 4, 1]
-```
-
-A side note about the name (`++/2`) format used above:
-In Elixir (and Erlang, upon which Elixir is built), a function or operator name has two components: the name you give it (here `++`) and its *arity*.
-Arity is a core part of speaking about Elixir (and Erlang) code.
-It is the number of arguments a given function takes (two, in this case).
-Arity and the given name are combined with a slash. We'll talk more about this later; this knowledge will help you understand the notation for now.
-
-#### List Subtraction
-
-Support for subtraction is provided via the `--/2` operator; it's safe to subtract a missing value:
-
-```elixir
-["foo", :bar, 42] -- [42, "bar"]
-```
-
-Be mindful of duplicate values.
-For every element on the right, the first occurrence of it gets removed from the left:
-
-```elixir
-[1, 2, 2, 3, 2, 3] -- [1, 2, 3, 2]
-```
-
-**Note:** List subtraction uses [strict comparison](../basics/#comparison) to match the values. For example:
-
-```elixir
-[2] -- [2.0]
-```
-
-```elixir
-[2.0] -- [2.0]
-```
-
-#### Head / Tail
-
-When using lists, it is common to work with a list's head and tail.
-The head is the list's first element, while the tail is a list containing the remaining elements.
-Elixir provides two helpful functions, `hd` and `tl`, for working with these parts:
-
-```elixir
-hd([3.14, :pie, "Apple"])
-```
-
-```elixir
-tl([3.14, :pie, "Apple"])
-```
-
-In addition to the aforementioned functions, you can use [pattern matching](../pattern-matching/) and the cons operator `|` to split a list into head and tail. We'll learn more about this pattern in later lessons:
-
-```elixir
-[head | tail] = [3.14, :pie, "Apple"]
-```
-
-```elixir
-head
-```
-
-```elixir
-tail
-```
-
-## Terke (Tuples)
-
-Terke so urejene n-terke in so nespremenljive.
-
-Terke se zapisujeo z zavitimi oklepaji ter elemnti razdvojenimi z vejico:
-
-```elixir
-{640, 480}
-```
-
-```elixir
-{:ok, "abc 123"}
-```
-
-
-```elixir
-{3.14, :pie, "Apple"}
-```
-
-Pogosto se uporabljajo kot podatkovna struktura za vračilo informacij iz funkcije. 
-  
-```elixir
-File.read("/root/livebook/notebook/elixir-school/basics.livemd")
-```
-
-```elixir
-File.read("path/to/unknown/file")
-```
-
-## Slovarji (Maps)
-
-
-Slovarji so neurejena, asociativna podatkovna struktura katere elementi so par ključ in vrednost.
-- "barva sonca" --> "rumena"
-
-Slovarji so v Elixirju temaljna shramba tipa ključ-vrednost: "ime" - "Toni", "naslov" - "Ulica 1".
-
-Slovarji so optimizirani za pridobivanje vrednosti, ko je ključ znan.
-
-
-Slovar zapišemo kot `%{ključ1 => vrednost1, ključ2 => vrednost2}`. 
-
-```elixir
-slovar = %{:ime => "Pinko", "priimek" => "Palino", :naslov => "Koper"}
-```
-
-Do posameznih elementov v slovarju dostopamo z `slovar[ključ]`
-
-```elixir
-slovar[:ime]
-```
-
-```elixir
-slovar["priimek"]
-```
-
-Ker v slovarjih pogosto za ključe uporabljamo atome obstaja krajši zapis:
-
-```elixir
-%{foo: "bar", hello: "world"}
-```
-
-```elixir
-%{foo: "bar", hello: "world"} == %{:foo => "bar", :hello => "world"}
-```
-
-Krajšnica za dostop do elementov slovarja, če uporabljamo atome za ključe:
-
-```elixir
-map = %{foo: "bar", hello: "world"}
-map.hello
-```
-
-
-## Modul Enum
-
- `Enum` modul ima več kot 70 funkcij za delo z podatkovnimi strukturami (razen terk).
-
-
-```elixir
-Enum.__info__(:functions)
-|> Enum.each(fn {function, arity} ->
-  IO.puts("#{function}/#{arity}")
-end)
-```
-
-Using this, it's clear that we have a vast amount of functionality, and that is for a clear reason.
-Enumeration is at the core of functional programming, and combined with other perks of Elixir it can be incredibly empowering for developers.
-
-For a full list of functions visit the official [`Enum`](https://hexdocs.pm/elixir/Enum.html) docs; for lazy enumeration use the [`Stream`](https://hexdocs.pm/elixir/Stream.html) module.
-
-
-#### map
-
-To apply our function to each item and produce a new collection look to the `map/2` function:
-
-```elixir
-Enum.map([0, 1, 2, 3], fn x -> x - 1 end)
-```
-
-
-#### each
-
-Funkcija grem čez celo podatkovno strukturo brez, da bi naredila novo vrednost.
-
-```elixir
-Enum.each(["one", "two", "three"], fn s -> IO.puts(s) end)
-```
-
-
-#### filter
-
-The `filter/2` function enables us to filter the collection to include only those elements that evaluate to `true` using the provided function.
-
-```elixir
-Enum.filter([1, 2, 3, 4], fn x -> rem(x, 2) == 0 end)
-```
-
-#### reduce
-
-With `reduce/3` we can distill our collection down into a single value.
-To do this we supply an optional accumulator (`10` in this example) to be passed into our function; if no accumulator is provided the first element in the enumerable is used:
-
-```elixir
-Enum.reduce([1, 2, 3], 10, fn x, acc -> x + acc end)
-```
-
-```elixir
-Enum.reduce([1, 2, 3], fn x, acc -> x + acc end)
-```
-
-```elixir
-Enum.reduce(["a", "b", "c"], "1", fn x, acc -> x <> acc end)
-```
-
-
-####  Capture operator (&)
-
-```elixir
-Enum.map([1, 2, 3], fn x -> x +  3end)
+for n <- [1, 2, 3, 4], do: n * n
 ```
 
-Skrajšana obika z operaterjem `&`
-
 ```elixir
-Enum.map([1, 2, 3], &(&1 + 3))
+for n <- [10, 20, 30, 40], do: n + 1
 ```
-
 
+![&quot;for loop&quot;](/data/for.png)
 
+svetilnik
 
-##  Ujemanje vzorcev (pattern matching)
-
-Znak enako (=) v Elixirju ni namenjen dodeljebvanju vrednosti temveč *ujemanju vzorcev*. Razumemo ga lahko kot znak enako v matematiki: lava stran enačbe je neka desni strani enačbe.
-
 ```elixir
-42 = 40 + 2
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
+Process.sleep(1000)
+IO.puts("ugsni")
+Process.sleep(500)
+IO.puts("PRIŽGI")
 ```
 
 ```elixir
-42 = 100
+for n <- 1..10, do: IO.puts(n)
 ```
 
 ```elixir
-a = 42
+for n <- 1..10, do: n * 100
 ```
-
-Pravilo:
-- primerjaj tip podatkov
-- pripejaj obliko podatkov
-- povezave z spremenljivkami (destructuring)
 
+Enum
 
 ```elixir
-l = [42, 33, 17, 88]
-```
-
-```elixir
-[a, b, c, d] = [42, 33, 17, 88]
-```
+lst = [1, 2, 3, 4, 5, 6, 7, 6, 9, 10]
 
+for el <- lst do
+  IO.inspect(el)
+  IO.inspect(el * 1000)
+end
 
-`{:ok, led_output0} = Circuits.GPIO.open(led_pin0, :output)`
-
-```elixir
-{:ok, led_output0} = Circuits.GPIO.open(9, :output)
+# dddd
 ```
